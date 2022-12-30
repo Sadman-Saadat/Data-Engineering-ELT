@@ -1,0 +1,12 @@
+{
+  "src_db"               : "dvdrental",
+  "src_host"             : "127.0.0.1",
+  "src_port"             : "5432",
+  "src_username"         : "postgres",
+  "src_password"         : "postgres",
+  "target_db"            : "dvdrental",
+  "target_db_host"       : "127.0.0.1",
+  "target_db_port"       : "5432",
+  "target_db_username"   : "postgres",
+  "target_db_password"   : "postgres"
+}
