@@ -1,5 +1,5 @@
 from configuration.config import Credential
-from utility.insert_data import insert_data
+from utility.insert_data_postgres import insert_data
 
 
 class ETL(Credential):
