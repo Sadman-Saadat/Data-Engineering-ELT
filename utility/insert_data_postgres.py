@@ -3,7 +3,7 @@ from psycopg2 import extras
 import pandas as pd
 
 
-def insert_data(src_conn, src_cursor, tgt_conn=None, tgt_cursor=None, table_name=None):
+def insert_data_postgres(src_conn, src_cursor, tgt_conn=None, tgt_cursor=None, table_name=None):
     sql_code = f"""select * from public.{table_name}"""  # src table
     try:
         src_cursor.execute(sql_code)  # execute query in src
