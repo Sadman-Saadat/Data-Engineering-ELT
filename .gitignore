@@ -3,3 +3,4 @@ playground
 venv
 configuration/config.json
 configuration/config.py
+**/__pycache__
