@@ -1,4 +1,4 @@
-# ELT process: Extract data from postgres then load the data into Postgres & MySQL DB.
+# ELT
 
 # Dir structure
 
