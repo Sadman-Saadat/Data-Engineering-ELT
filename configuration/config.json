@@ -1,0 +1,17 @@
+{
+  "src_db"                        : "dvdrental",
+  "src_host"                      : "127.0.0.1",
+  "src_port"                      : "5432",
+  "src_username"                  : "postgres",
+  "src_password"                  : "postgres",
+  "target_postgres_db"            : "dvdrental",
+  "target_postgres_db_host"       : "127.0.0.1",
+  "target_postgres_db_port"       : "5432",
+  "target_postgres_db_username"   : "postgres",
+  "target_postgres_db_password"   : "postgres",
+  "target_mysql_db"               : "dvdrental",
+  "target_mysql_db_host"          : "127.0.0.1",
+  "target_mysql_db_port"          : "3306",
+  "target_mysql_db_username"      : "root",
+  "target_mysql_db_password"      : "riju000346>R#"
+}
