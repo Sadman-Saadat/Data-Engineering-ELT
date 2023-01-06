@@ -1,10 +1,25 @@
 # ELT (```Ongoing```)
 
 # Dir structure
-
-+ **configuration**: all kinds of DB credential
-+ **utility**      : all helper function
-+ **test**         : test case for unit testing 
+```
+project
+│   README.md
+│   requirements.txt  
+|   .gitignore  
+|   postgres_to_postgres_mysql.py
+│
+└───configuration
+│   │   config.json     : all kinds of DB credential
+│   │   config.py       : mapping the credential
+│   │   config_test.py  : for testing
+|   |
+│   
+└───test
+│   │   etl_test_case.py : testing the elt project
+│   
+└───utility
+    │   insert_data.py  : helper fn
+```
 
 # How to run the project
 
