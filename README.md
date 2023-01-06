@@ -19,5 +19,5 @@
     ```
 + install packages from ```requirements.txt```
     ```text
-    pip freeze -r requirements.txt
+    pip install -r requirements.txt
     ```
