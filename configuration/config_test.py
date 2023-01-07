@@ -14,13 +14,13 @@ class Credential:
         try:
             # Source DB credential
             # ====================
-            self.src = psycopg2.connect(database=config_fle_data["src_db"],
-                                        user=config_fle_data["src_username"],
-                                        password=config_fle_data["src_password"],
-                                        host=config_fle_data["src_host"],
-                                        port=config_fle_data["src_port"]
-                                        )
-            self.src_cursor = self.src.cursor()
+            self.src_postgres = psycopg2.connect(database=config_fle_data["src_db"],
+                                                 user=config_fle_data["src_username"],
+                                                 password=config_fle_data["src_password"],
+                                                 host=config_fle_data["src_host"],
+                                                 port=config_fle_data["src_port"]
+                                                 )
+            self.src_postgres_cursor = self.src_postgres.cursor()
         except psycopg2.Error as e:
             print(e.pgerror)
             print(e.diag.message_detail)
@@ -29,13 +29,13 @@ class Credential:
         try:
             # target DB1 credential
             # =====================
-            self.dwh = psycopg2.connect(database=config_fle_data["target_postgres_db"],
-                                        user=config_fle_data["target_postgres_db_username"],
-                                        password=config_fle_data["target_postgres_db_password"],
-                                        host=config_fle_data["target_postgres_db_host"],
-                                        port=config_fle_data["target_postgres_db_port"]
-                                        )
-            self.dwh_cursor = self.dwh.cursor()
+            self.tgt_postgres = psycopg2.connect(database=config_fle_data["target_postgres_db"],
+                                                 user=config_fle_data["target_postgres_db_username"],
+                                                 password=config_fle_data["target_postgres_db_password"],
+                                                 host=config_fle_data["target_postgres_db_host"],
+                                                 port=config_fle_data["target_postgres_db_port"]
+                                                 )
+            self.tgt_postgres_cursor = self.tgt_postgres.cursor()
         except psycopg2.Error as e:
             print(e.pgerror)
             print(e.diag.message_detail)
@@ -44,12 +44,12 @@ class Credential:
         try:
             # target DB2 credential
             # =========================
-            self.tgt_db2 = connector.connect(database=config_fle_data["target_mysql_db"],
-                                             host=config_fle_data["target_mysql_db_host"],
-                                             user=config_fle_data["target_mysql_db_username"],
-                                             password=config_fle_data["target_mysql_db_password"]
-                                             )
-            self.tgt_db2_cursor = self.tgt_db2.cursor()
+            self.tgt_mysql = connector.connect(database=config_fle_data["target_mysql_db"],
+                                               host=config_fle_data["target_mysql_db_host"],
+                                               user=config_fle_data["target_mysql_db_username"],
+                                               password=config_fle_data["target_mysql_db_password"]
+                                               )
+            self.tgt_mysql_cursor = self.tgt_mysql.cursor()
         except mysql.connector.Error as error:
             print(error)
             print("connection error. Please check Replica DB connection detail & credential.")
@@ -67,13 +67,13 @@ class Credential:
                           src_host,
                           src_port):
         try:
-            self.src = psycopg2.connect(database=src_db,
-                                        user=src_username,
-                                        password=src_password,
-                                        host=src_host,
-                                        port=src_port
-                                        )
-            self.src_cursor = self.src.cursor()
+            self.src_postgres = psycopg2.connect(database=src_db,
+                                                 user=src_username,
+                                                 password=src_password,
+                                                 host=src_host,
+                                                 port=src_port
+                                                 )
+            self.src_postgres_cursor = self.src_postgres.cursor()
             return True
         except psycopg2.Error as e:
             # print(e.diag.message_detail)
@@ -87,13 +87,13 @@ class Credential:
                            tgt_db1_host,
                            tgt_db1_port):
         try:
-            self.tgt1 = psycopg2.connect(database=tgt_db1,
-                                         user=tgt_db1_username,
-                                         password=tgt_db1_password,
-                                         host=tgt_db1_host,
-                                         port=tgt_db1_port
-                                         )
-            self.tgt1_cursor = self.tgt1.cursor()
+            self.tgt_postgres = psycopg2.connect(database=tgt_db1,
+                                                 user=tgt_db1_username,
+                                                 password=tgt_db1_password,
+                                                 host=tgt_db1_host,
+                                                 port=tgt_db1_port
+                                                 )
+            self.tgt_postgres_cursor = self.tgt_postgres.cursor()
             return True
         except psycopg2.Error as e:
             # print(e.diag.message_detail)
@@ -106,12 +106,12 @@ class Credential:
                            tgt_db2_password,
                            tgt_db2_host):
         try:
-            self.tgt2 = connector.connect(database=tgt_db2,
-                                         host=tgt_db2_host,
-                                         user=tgt_db2_username,
-                                         password=tgt_db2_password,
-                                         )
-            self.tgt2_cursor = self.tgt2.cursor()
+            self.tgt_mysql = connector.connect(database=tgt_db2,
+                                          host=tgt_db2_host,
+                                          user=tgt_db2_username,
+                                          password=tgt_db2_password,
+                                          )
+            self.tgt_mysql_cursor = self.tgt_mysql.cursor()
             return True
         except mysql.connector.Error as e:
             # print(e.sqlstate)

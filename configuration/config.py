@@ -1,7 +1,7 @@
 import os
 import json
 import psycopg2  # postgres DB library to execute sql
-import mysql
+import mysql    # mysql DB library to execute sql
 from mysql import connector
 
 config_fle = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'config.json')  # config file read
@@ -14,13 +14,13 @@ class Credential:
         try:
             # Source DB credential
             # ====================
-            self.src = psycopg2.connect(database=config_fle_data["src_db"],
-                                        user=config_fle_data["src_username"],
-                                        password=config_fle_data["src_password"],
-                                        host=config_fle_data["src_host"],
-                                        port=config_fle_data["src_port"]
-                                        )
-            self.src_cursor = self.src.cursor()
+            self.src_postgres = psycopg2.connect(database=config_fle_data["src_db"],
+                                                 user=config_fle_data["src_username"],
+                                                 password=config_fle_data["src_password"],
+                                                 host=config_fle_data["src_host"],
+                                                 port=config_fle_data["src_port"]
+                                                 )
+            self.src_postgres_cursor = self.src_postgres.cursor()
         except psycopg2.Error as e:
             print(e.pgerror)
             print(e.diag.message_detail)
@@ -29,13 +29,13 @@ class Credential:
         try:
             # target DB1 credential
             # =====================
-            self.dwh = psycopg2.connect(database=config_fle_data["target_postgres_db"],
-                                        user=config_fle_data["target_postgres_db_username"],
-                                        password=config_fle_data["target_postgres_db_password"],
-                                        host=config_fle_data["target_postgres_db_host"],
-                                        port=config_fle_data["target_postgres_db_port"]
-                                        )
-            self.dwh_cursor = self.dwh.cursor()
+            self.tgt_postgres = psycopg2.connect(database=config_fle_data["target_postgres_db"],
+                                                 user=config_fle_data["target_postgres_db_username"],
+                                                 password=config_fle_data["target_postgres_db_password"],
+                                                 host=config_fle_data["target_postgres_db_host"],
+                                                 port=config_fle_data["target_postgres_db_port"]
+                                                 )
+            self.tgt_postgres_cursor = self.tgt_postgres.cursor()
         except psycopg2.Error as e:
             print(e.pgerror)
             print(e.diag.message_detail)
@@ -44,13 +44,12 @@ class Credential:
         try:
             # target DB2 credential
             # =========================
-            self.tgt_db2 = connector.connect(database=config_fle_data["target_mysql_db"],
-                                             host=config_fle_data["target_mysql_db_host"],
-                                             user=config_fle_data["target_mysql_db_username"],
-                                             password=config_fle_data["target_mysql_db_password"]
-                                             )
-            self.tgt_db2_cursor = self.tgt_db2.cursor()
+            self.tgt_mysql = connector.connect(database=config_fle_data["target_mysql_db"],
+                                               host=config_fle_data["target_mysql_db_host"],
+                                               user=config_fle_data["target_mysql_db_username"],
+                                               password=config_fle_data["target_mysql_db_password"]
+                                               )
+            self.tgt_mysql_cursor = self.tgt_mysql.cursor()
         except mysql.connector.Error as error:
             print(error)
             print("connection error. Please check Replica DB connection detail & credential.")
-
