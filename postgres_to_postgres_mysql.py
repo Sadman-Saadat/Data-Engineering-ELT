@@ -8,7 +8,7 @@ class ETL(Credential):
 
     # table (test)
     # ===========
-    def actor_table_insert_data_test(self):
+    def actor_table_insert_data_mysql_test(self):
         table_name = "actor"
         insert_data_mysql(self.postgres_conn1, self.postgres_conn1_cursor, self.mysql_conn1, self.mysql_conn1_cursor,
                           table_name)
@@ -16,17 +16,16 @@ class ETL(Credential):
     # table 1
     def actor_table_insert_data(self):
         table_name = "actor"
-        insert_data_postgres(self.postgres_conn1, self.postgres_conn1_cursor, self.postgres_conn2, self.postgres_conn2_cursor,
-                             table_name)
-        insert_data_mysql(self.postgres_conn1, self.postgres_conn1_cursor, self.mysql_conn1, self.mysql_conn1_cursor,
-                          table_name)
+        insert_data_postgres(self.postgres_conn1, self.postgres_conn1_cursor, self.postgres_conn2,
+                             self.postgres_conn2_cursor, table_name)
+        insert_data_mysql(self.postgres_conn1, self.postgres_conn1_cursor, self.mysql_conn1,
+                          self.mysql_conn1_cursor, table_name)
 
     # table 2
     def address_table_insert_data(self):
         table_name = "address"
         insert_data_postgres(self.postgres_conn1, self.postgres_conn1_cursor, self.postgres_conn2,
-                             self.postgres_conn2_cursor,
-                             table_name)
+                             self.postgres_conn2_cursor, table_name)
         insert_data_mysql(self.postgres_conn1, self.postgres_conn1_cursor, self.mysql_conn1, self.mysql_conn1_cursor,
                           table_name)
 
@@ -72,5 +71,4 @@ class ETL(Credential):
 if __name__ == '__main__':
     etl = ETL()
     etl.main()
-    # etl.actor_table_insert_data_test()
-
+    # etl.actor_table_insert_data_postgres_test()

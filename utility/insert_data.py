@@ -1,6 +1,7 @@
 import psycopg2
 from psycopg2 import extras
 import pandas as pd
+from datetime import datetime
 import mysql
 
 
@@ -37,8 +38,12 @@ def insert_data_mysql(src_conn, src_cursor, tgt_conn=None, tgt_cursor=None, tabl
         df.index = df.index + 1  # shifting index
         df.sort_index(inplace=True)
         df.columns = df.iloc[0]  # use 1st row as header
-        df['last_update'] = df['last_update'].astype(str)  # convert datetime col to str for MySQL
-        values = [tuple(x) for x in df[1:].to_numpy()]  # df[1:]: 1st row as 0 index is feature name
+        df = df.iloc[1:, :]  # df[1:]: 1st row as 0 index is feature name (col)
+        # ===========================================
+        # convert str to MySQL datetime (ms excluded)
+        # ===========================================
+        df['last_update'] = df['last_update'].apply(lambda x: datetime.strptime(str(x)[:19], '%Y-%m-%d %H:%M:%S').strftime("%Y-%m-%d %H:%M:%S"))
+        values = [tuple(x) for x in df.to_numpy()]
         insert_query = f"""insert into {table_name} values ({','.join(['%s' for _ in range(len(cols.split(',')))])})"""  # cols.split(): the more feature the more value for each row
         tgt_cursor.executemany(insert_query, values)  # execute query in target
         tgt_conn.commit()  # commit
