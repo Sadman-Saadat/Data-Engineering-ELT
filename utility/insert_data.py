@@ -15,8 +15,6 @@ def insert_data_postgres(src_conn, src_cursor, tgt_conn=None, tgt_cursor=None, t
         insert_query = "insert into etl.%s(%s) values %%s" % (table_name, cols)  # target table
         extras.execute_values(tgt_cursor, insert_query, values)  # execute query in target
         tgt_conn.commit()  # commit
-        tgt_conn.close()  # target conn close
-        src_conn.close()  # src conn close
         print(f"{len(values)} rows inserted successfully in etl.{table_name} table...")
 
     except (Exception, psycopg2.DatabaseError) as error:
@@ -44,8 +42,6 @@ def insert_data_mysql(src_conn, src_cursor, tgt_conn=None, tgt_cursor=None, tabl
         insert_query = f"""insert into {table_name} values ({','.join(['%s' for _ in range(len(cols.split(',')))])})"""  # cols.split(): the more feature the more value for each row
         tgt_cursor.executemany(insert_query, values)  # execute query in target
         tgt_conn.commit()  # commit
-        tgt_conn.close()  # target conn close
-        src_conn.close()  # src conn close
         print(f"{len(values)} rows inserted successfully in {table_name} table...")
 
     except mysql.connector.Error as error:
