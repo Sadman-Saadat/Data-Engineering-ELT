@@ -8,6 +8,9 @@ project
 |   .gitignore  
 |   postgres_to_postgres_mysql.py
 │
+└───miscellaneous
+│   │   dvdrental.tar : sample db
+│
 └───configuration
 │   │   config.json     : all kinds of DB credential
 │   │   config.py       : mapping the credential
