@@ -34,7 +34,7 @@ class TestETL(unittest.TestCase):
         print(f"Target Postgres Connection testing done ...")
 
     def test_mysql_connection1(self):
-        print(f"Target MySQL Connection testing started ...")
+        print(f"Source / Target MySQL Connection testing started ...")
         self.assertEqual(credential.mysql_connection1('dvdrental', 'root', 'riju000346>R#', '127.0.0.1'), True)
         """
         =================
@@ -44,6 +44,20 @@ class TestETL(unittest.TestCase):
         self.assertEqual(credential.mysql_connection1('dvdrental', 'roo', 'riju000346>R#', '127.0.0.1'), 28000)
         self.assertEqual(credential.mysql_connection1('dvdrental', 'root', 'riju000346>R', '127.0.0.1'), 28000)
         self.assertEqual(credential.mysql_connection1('dvdrental', 'root', 'riju000346>R', '127.0.0.3'), 28000)
+
+        print(f"Target MySQL Connection testing done ...")
+
+    def test_mysql_connection2(self):
+        print(f"Target MySQL Connection testing started ...")
+        self.assertEqual(credential.mysql_connection1('target_dvdrental', 'root', 'riju000346>R#', '127.0.0.1'), True)
+        """
+        =================
+        wrong credential 
+        =================
+        """
+        self.assertEqual(credential.mysql_connection1('target_dvdrental', 'roo', 'riju000346>R#', '127.0.0.1'), 28000)
+        self.assertEqual(credential.mysql_connection1('target_dvdrental', 'root', 'riju000346>R', '127.0.0.1'), 28000)
+        self.assertEqual(credential.mysql_connection1('target_dvdrental', 'root', 'riju000346>R', '127.0.0.3'), 28000)
 
         print(f"Target MySQL Connection testing done ...")
 

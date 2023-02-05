@@ -12,7 +12,7 @@ with open(config_fle) as f:
 class Credential:
     def __init__(self):
         try:
-            # Source DB credential
+            # Source DB1 credential
             # ====================
             self.postgres_conn1 = psycopg2.connect(database=config_fle_data["src_db"],
                                                    user=config_fle_data["src_username"],
@@ -24,7 +24,7 @@ class Credential:
         except psycopg2.Error as e:
             print(e.pgerror)
             print(e.diag.message_detail)
-            print("connection error. Please check DWH connection detail & credential.")
+            print("connection error. Please check Postgres source connection detail & credential.")
 
         try:
             # target DB1 credential
@@ -39,17 +39,30 @@ class Credential:
         except psycopg2.Error as e:
             print(e.pgerror)
             print(e.diag.message_detail)
-            print("connection error. Please check Replica DB connection detail & credential.")
+            print("connection error. Please check Postgres target connection detail & credential.")
 
         try:
-            # target DB2 credential
+            # src/target DB2 credential
             # =========================
-            self.mysql_conn1 = connector.connect(database=config_fle_data["target_mysql_db"],
-                                                 host=config_fle_data["target_mysql_db_host"],
-                                                 user=config_fle_data["target_mysql_db_username"],
-                                                 password=config_fle_data["target_mysql_db_password"]
+            self.mysql_conn1 = connector.connect(database=config_fle_data["mysql_db"],
+                                                 host=config_fle_data["mysql_db_host"],
+                                                 user=config_fle_data["mysql_db_username"],
+                                                 password=config_fle_data["mysql_db_password"]
                                                  )
             self.mysql_conn1_cursor = self.mysql_conn1.cursor()
         except mysql.connector.Error as error:
             print(error)
-            print("connection error. Please check Replica DB connection detail & credential.")
+            print("connection error. Please check MySQL source connection detail & credential.")
+
+        try:
+            # target DB2 credential
+            # =========================
+            self.mysql_conn2 = connector.connect(database=config_fle_data["target_mysql_db"],
+                                                 host=config_fle_data["target_mysql_db_host"],
+                                                 user=config_fle_data["target_mysql_db_username"],
+                                                 password=config_fle_data["target_mysql_db_password"]
+                                                 )
+            self.mysql_conn2_cursor = self.mysql_conn2.cursor()
+        except mysql.connector.Error as error:
+            print(error)
+            print("connection error. Please check MySQL target connection detail & credential.")
