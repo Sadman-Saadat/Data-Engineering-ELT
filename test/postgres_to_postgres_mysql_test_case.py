@@ -1,6 +1,6 @@
 import unittest
 from configuration.config_test import Credential
-from utility import insert_data_test as idt
+from utility import insert_data_postgres_to_postgres_mysql_test as idt
 
 credential = Credential()
 
