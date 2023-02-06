@@ -6,13 +6,6 @@ class ETL(Credential):
     def __init__(self):
         super(ETL, self).__init__()
 
-    # table (test)
-    # ===========
-    def actor_table_insert_data_mysql_test(self):
-        table_name = "actor"
-        insert_data_mysql(self.postgres_conn1, self.postgres_conn1_cursor, self.mysql_conn1, self.mysql_conn1_cursor,
-                          table_name)
-
     # table 1
     def actor_table_insert_data(self):
         table_name = "actor"
@@ -71,4 +64,3 @@ class ETL(Credential):
 if __name__ == '__main__':
     etl = ETL()
     etl.main()
-    # etl.actor_table_insert_data_postgres_test()
