@@ -39,3 +39,7 @@ project
     ```text
     pip install -r requirements.txt
     ```
++ ```configuration --> config.json```
+    ```text
+    Add/update source & target DB credentials
+    ```
