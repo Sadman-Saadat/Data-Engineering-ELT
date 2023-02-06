@@ -4,19 +4,12 @@ import pandas as pd
 from datetime import datetime
 import mysql
 from configuration.config import Credential
+from utility.truncate_data import truncate_data
 
 credential = Credential()
 
 
-# def truncate_data(insert_data):
-#     def wrapper(*args):
-#         print(args)
-#         insert_data()
-#
-#     return wrapper
-#
-#
-# @truncate_data
+@truncate_data
 def insert_data_mysql(src_conn, src_cursor, tgt_conn=None, tgt_cursor=None, table_name=None):
     sql_code = f"""select * from {table_name}"""  # src table
     try:
