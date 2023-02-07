@@ -10,44 +10,51 @@ class ETL(Credential):
     def actor_table_insert_data(self):
         table_name = "actor"
         insert_data_postgres(self.postgres_conn1, self.postgres_conn1_cursor, self.postgres_conn2,
-                             self.postgres_conn2_cursor, table_name)
+                             self.postgres_conn2_cursor, self.postgres_conn1_schema,
+                             self.postgres_conn2_schema,table_name)
         insert_data_mysql(self.postgres_conn1, self.postgres_conn1_cursor, self.mysql_conn1,
-                          self.mysql_conn1_cursor, table_name)
+                          self.mysql_conn1_cursor, self.postgres_conn1_schema,
+                          self.mysql_conn1_schema, table_name)
 
     # table 2
     def address_table_insert_data(self):
         table_name = "address"
         insert_data_postgres(self.postgres_conn1, self.postgres_conn1_cursor, self.postgres_conn2,
-                             self.postgres_conn2_cursor, table_name)
-        insert_data_mysql(self.postgres_conn1, self.postgres_conn1_cursor, self.mysql_conn1, self.mysql_conn1_cursor,
-                          table_name)
+                             self.postgres_conn2_cursor, self.postgres_conn1_schema,
+                             self.postgres_conn2_schema, table_name)
+        insert_data_mysql(self.postgres_conn1, self.postgres_conn1_cursor, self.mysql_conn1,
+                          self.mysql_conn1_cursor, self.postgres_conn1_schema,
+                          self.mysql_conn1_schema, table_name)
 
     # table 3
     def category_table_insert_data(self):
         table_name = "category"
         insert_data_postgres(self.postgres_conn1, self.postgres_conn1_cursor, self.postgres_conn2,
-                             self.postgres_conn2_cursor,
-                             table_name)
-        insert_data_mysql(self.postgres_conn1, self.postgres_conn1_cursor, self.mysql_conn1, self.mysql_conn1_cursor,
-                          table_name)
+                             self.postgres_conn2_cursor, self.postgres_conn1_schema,
+                             self.postgres_conn2_schema, table_name)
+        insert_data_mysql(self.postgres_conn1, self.postgres_conn1_cursor, self.mysql_conn1,
+                          self.mysql_conn1_cursor, self.postgres_conn1_schema,
+                          self.mysql_conn1_schema, table_name)
 
     # table 4
     def city_table_insert_data(self):
         table_name = "city"
         insert_data_postgres(self.postgres_conn1, self.postgres_conn1_cursor, self.postgres_conn2,
-                             self.postgres_conn2_cursor,
-                             table_name)
-        insert_data_mysql(self.postgres_conn1, self.postgres_conn1_cursor, self.mysql_conn1, self.mysql_conn1_cursor,
-                          table_name)
+                             self.postgres_conn2_cursor, self.postgres_conn1_schema,
+                             self.postgres_conn2_schema, table_name)
+        insert_data_mysql(self.postgres_conn1, self.postgres_conn1_cursor, self.mysql_conn1,
+                          self.mysql_conn1_cursor, self.postgres_conn1_schema,
+                          self.mysql_conn1_schema, table_name)
 
     # table 5
     def country_table_insert_data(self):
         table_name = "country"
         insert_data_postgres(self.postgres_conn1, self.postgres_conn1_cursor, self.postgres_conn2,
-                             self.postgres_conn2_cursor,
-                             table_name)
-        insert_data_mysql(self.postgres_conn1, self.postgres_conn1_cursor, self.mysql_conn1, self.mysql_conn1_cursor,
-                          table_name)
+                             self.postgres_conn2_cursor, self.postgres_conn1_schema,
+                             self.postgres_conn2_schema, table_name)
+        insert_data_mysql(self.postgres_conn1, self.postgres_conn1_cursor, self.mysql_conn1,
+                          self.mysql_conn1_cursor, self.postgres_conn1_schema,
+                          self.mysql_conn1_schema, table_name)
 
     def main(self):
         self.actor_table_insert_data()
