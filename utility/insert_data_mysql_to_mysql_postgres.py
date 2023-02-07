@@ -10,8 +10,14 @@ credential = Credential()
 
 
 @truncate_data
-def insert_data_mysql(src_conn, src_cursor, tgt_conn=None, tgt_cursor=None, table_name=None):
-    sql_code = f"""select * from {table_name}"""  # src table
+def insert_data_mysql(src_conn,
+                      src_cursor,
+                      tgt_conn=None,
+                      tgt_cursor=None,
+                      src_schema=None,
+                      tgt_schema=None,
+                      table_name=None):
+    sql_code = f"""select * from {src_schema}.{table_name}"""  # src table
     try:
         src_cursor.execute(sql_code)  # execute query in src
         data = src_cursor.fetchall()  # get data from src
@@ -31,7 +37,7 @@ def insert_data_mysql(src_conn, src_cursor, tgt_conn=None, tgt_cursor=None, tabl
         df['last_update'] = df['last_update'].apply(
             lambda x: datetime.strptime(str(x)[:19], '%Y-%m-%d %H:%M:%S').strftime("%Y-%m-%d %H:%M:%S"))
         values = [tuple(x) for x in df.to_numpy()]  # only raw data
-        insert_query = f"""insert into {table_name} values ({','.join(['%s' for _ in range(len(cols.split(',')))])})"""  # cols.split(): more feature more value for row
+        insert_query = f"""insert into {tgt_schema}.{table_name} values ({','.join(['%s' for _ in range(len(cols.split(',')))])})"""  # cols.split(): more feature more value for row
         tgt_cursor.executemany(insert_query, values)  # execute query in target
         tgt_conn.commit()  # commit
         print(f"{len(values)} rows inserted successfully in MySQL target_dvdrental.{table_name} table...")
@@ -42,15 +48,22 @@ def insert_data_mysql(src_conn, src_cursor, tgt_conn=None, tgt_cursor=None, tabl
         src_conn.close()
 
 
-def insert_data_postgres(src_conn, src_cursor, tgt_conn=None, tgt_cursor=None, table_name=None):
-    sql_code = f"""select * from {table_name}"""  # src table
+@truncate_data
+def insert_data_postgres(src_conn,
+                         src_cursor,
+                         tgt_conn=None,
+                         tgt_cursor=None,
+                         src_schema=None,
+                         tgt_schema=None,
+                         table_name=None):
+    sql_code = f"""select * from {src_schema}.{table_name}"""  # src table
     try:
         src_cursor.execute(sql_code)  # execute query in src
         data = src_cursor.fetchall()  # get data from src
         df = pd.DataFrame(data)  # convert it to DataFrame
         values = [tuple(x) for x in df.to_numpy()]  # extract data
         cols = ",".join([col[0] for col in src_cursor.description])  # columns
-        insert_query = "insert into etl.%s(%s) values %%s" % (table_name, cols)  # target table
+        insert_query = f"insert into {tgt_schema}.%s(%s) values %%s" % (table_name, cols)  # target table
         extras.execute_values(tgt_cursor, insert_query, values)  # execute query in target
         tgt_conn.commit()  # commit
         print(f"{len(values)} rows are ready to insert in postgres etl.{table_name} table...")
