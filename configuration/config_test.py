@@ -21,6 +21,7 @@ class Credential:
                                                    port=config_fle_data["src_port"]
                                                    )
             self.postgres_conn1_cursor = self.postgres_conn1.cursor()
+            self.postgres_conn1_schema = config_fle_data["src_schema"]
         except psycopg2.Error as e:
             print(e.pgerror)
             print(e.diag.message_detail)
@@ -36,6 +37,7 @@ class Credential:
                                                    port=config_fle_data["target_postgres_db_port"]
                                                    )
             self.postgres_conn2_cursor = self.postgres_conn2.cursor()
+            self.postgres_conn2_schema = config_fle_data["target_postgres_schema"]
         except psycopg2.Error as e:
             print(e.pgerror)
             print(e.diag.message_detail)
@@ -50,6 +52,7 @@ class Credential:
                                                  password=config_fle_data["mysql_db_password"]
                                                  )
             self.mysql_conn1_cursor = self.mysql_conn1.cursor()
+            self.mysql_conn1_schema = config_fle_data["mysql_schema"]
         except mysql.connector.Error as error:
             print(error)
             print("connection error. Please check MySQL source connection detail & credential.")
@@ -63,6 +66,7 @@ class Credential:
                                                  password=config_fle_data["target_mysql_db_password"]
                                                  )
             self.mysql_conn2_cursor = self.mysql_conn2.cursor()
+            self.mysql_conn2_schema = config_fle_data["target_mysql_schema"]
         except mysql.connector.Error as error:
             print(error)
             print("connection error. Please check MySQL target connection detail & credential.")

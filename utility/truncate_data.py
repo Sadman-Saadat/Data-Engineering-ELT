@@ -4,7 +4,7 @@ def truncate_data(insert_data):
         truncate_sql = f"""truncate table {tgt_schema}.{tgt_table} ;"""
         tgt_cur.execute(truncate_sql)
         tgt_conn.commit()
-        print(f"{tgt_table} table data is truncated ...")
+        print(f"{tgt_schema}.{tgt_table} table data is truncated ...")
         insert_data(*args)
 
     return wrapper
