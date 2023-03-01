@@ -6,7 +6,8 @@ project
 │   README.md
 │   requirements.txt  
 |   .gitignore  
-|   postgres_to_postgres_mysql.py
+|   postgres_to_postgres_mysql_mongo.py
+|   mysql_to_mysql_postgres.py
 │
 └───miscellaneous
 │   │   dvdrental.tar : sample db
@@ -18,10 +19,17 @@ project
 |   |
 │   
 └───test
-│   │   etl_test_case.py : testing the elt project
+│   │   configuration_test_case.py
+│   │   mysql_to_mysql_postgres_test_case.py
+│   │   postgres_to_postgres_mysql_test_case.py
 │   
 └───utility
-    │   insert_data.py  : helper fn
+    │   insert_data_mysql_to_mysql_postgres.py
+    │   insert_data_mysql_to_mysql_postgres_test.py
+    │   insert_data_postgres_to_postgres_mysql_test.py 
+    │   insert_data_postgres_to_postgres_mysql_mongo.py
+    │   insert_data_postgres_to_postgres_mysql_mongo.py
+    │   truncate_data.py
 ```
 
 # How to run the project
