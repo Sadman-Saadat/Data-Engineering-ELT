@@ -75,8 +75,8 @@ class Credential:
         try:
             # MongoDB connection
             # ==================
-            self.client = pymongo.MongoClient('localhost', 27017)
-            self.db = self.client["movieData"]
+            self.mongo_client = pymongo.MongoClient('localhost', 27017)
+            self.mongo_db = self.mongo_client["movieData"]
         except pymongo.errors.NetworkTimeout:
             print("Connection timed out. Check your network connection.")
         except pymongo.errors.ConnectionFailure:
