@@ -69,3 +69,29 @@ def insert_data_mysql(src_conn,
         print(f"Error: {error}")
         src_conn.rollback()
         src_conn.close()
+
+
+def insert_data_mongo(src_conn, src_cursor, tgt_conn=None, table_name=None):
+    sql_code = f"""select * from public.{table_name}"""  # src table
+    try:
+        src_cursor.execute(sql_code)  # execute query in src
+        data = src_cursor.fetchall()  # get data from src
+        cols = ",".join([col[0] for col in src_cursor.description])  # columns
+        cols = tuple(cols.split(','))
+        collection = tgt_conn[table_name]
+        deleted_doc = collection.delete_many({})  # delete all doc before inserted
+        print(f"Total deleted doc: {deleted_doc.deleted_count}")
+        for i in data:
+            row = i
+            col = cols
+            doc = {k: v for k, v in zip(col, row)}
+            id_key = table_name + '_id'  # table primary key
+            doc_id = {'_id': doc[id_key]}
+            doc = {**doc, **doc_id}
+            insert_doc = collection.insert_one(doc)
+        print(f"Total inserted doc: {len(data)}")
+
+    except (Exception, psycopg2.DatabaseError) as error:
+        print(f"Error: {error}")
+        src_conn.rollback()
+        src_conn.close()

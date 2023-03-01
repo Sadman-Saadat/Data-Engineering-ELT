@@ -1,5 +1,6 @@
 from configuration.config import Credential
-from utility.insert_data_postgres_to_postgres_mysql import insert_data_postgres, insert_data_mysql
+from utility.insert_data_postgres_to_postgres_mysql_mongo import insert_data_postgres, insert_data_mysql, \
+    insert_data_mongo
 
 
 class ETL(Credential):
@@ -15,6 +16,8 @@ class ETL(Credential):
         insert_data_mysql(self.postgres_conn1, self.postgres_conn1_cursor, self.mysql_conn1,
                           self.mysql_conn1_cursor, self.postgres_conn1_schema,
                           self.mysql_conn1_schema, table_name)
+        insert_data_mongo(self.postgres_conn1, self.postgres_conn1_cursor,
+                          self.mongo_db, table_name)
 
     # table 2
     def address_table_insert_data(self):
@@ -25,6 +28,8 @@ class ETL(Credential):
         insert_data_mysql(self.postgres_conn1, self.postgres_conn1_cursor, self.mysql_conn1,
                           self.mysql_conn1_cursor, self.postgres_conn1_schema,
                           self.mysql_conn1_schema, table_name)
+        insert_data_mongo(self.postgres_conn1, self.postgres_conn1_cursor,
+                          self.mongo_db, table_name)
 
     # table 3
     def category_table_insert_data(self):
@@ -35,6 +40,8 @@ class ETL(Credential):
         insert_data_mysql(self.postgres_conn1, self.postgres_conn1_cursor, self.mysql_conn1,
                           self.mysql_conn1_cursor, self.postgres_conn1_schema,
                           self.mysql_conn1_schema, table_name)
+        insert_data_mongo(self.postgres_conn1, self.postgres_conn1_cursor,
+                          self.mongo_db, table_name)
 
     # table 4
     def city_table_insert_data(self):
@@ -45,6 +52,8 @@ class ETL(Credential):
         insert_data_mysql(self.postgres_conn1, self.postgres_conn1_cursor, self.mysql_conn1,
                           self.mysql_conn1_cursor, self.postgres_conn1_schema,
                           self.mysql_conn1_schema, table_name)
+        insert_data_mongo(self.postgres_conn1, self.postgres_conn1_cursor,
+                          self.mongo_db, table_name)
 
     # table 5
     def country_table_insert_data(self):
@@ -55,6 +64,8 @@ class ETL(Credential):
         insert_data_mysql(self.postgres_conn1, self.postgres_conn1_cursor, self.mysql_conn1,
                           self.mysql_conn1_cursor, self.postgres_conn1_schema,
                           self.mysql_conn1_schema, table_name)
+        insert_data_mongo(self.postgres_conn1, self.postgres_conn1_cursor,
+                          self.mongo_db, table_name)
 
     def main(self):
         self.actor_table_insert_data()
@@ -66,6 +77,7 @@ class ETL(Credential):
         self.postgres_conn1.close()
         self.postgres_conn2.close()
         self.mysql_conn1.close()
+        self.mongo_client.close()
 
 
 if __name__ == '__main__':
