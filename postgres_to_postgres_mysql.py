@@ -11,7 +11,7 @@ class ETL(Credential):
         table_name = "actor"
         insert_data_postgres(self.postgres_conn1, self.postgres_conn1_cursor, self.postgres_conn2,
                              self.postgres_conn2_cursor, self.postgres_conn1_schema,
-                             self.postgres_conn2_schema,table_name)
+                             self.postgres_conn2_schema, table_name)
         insert_data_mysql(self.postgres_conn1, self.postgres_conn1_cursor, self.mysql_conn1,
                           self.mysql_conn1_cursor, self.postgres_conn1_schema,
                           self.mysql_conn1_schema, table_name)
