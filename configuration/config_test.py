@@ -1,6 +1,7 @@
 import os
 import json
 import psycopg2  # postgres DB library to execute sql
+import pymongo
 import mysql
 from mysql import connector
 
@@ -70,6 +71,22 @@ class Credential:
         except mysql.connector.Error as error:
             print(error)
             print("connection error. Please check MySQL target connection detail & credential.")
+
+        try:
+            # MongoDB connection
+            # ==================
+            self.client = pymongo.MongoClient('localhost', 27017)
+            self.db = self.client["movieData"]
+        except pymongo.errors.NetworkTimeout:
+            print("Connection timed out. Check your network connection.")
+        except pymongo.errors.ConnectionFailure:
+            print("Unable to connect to the MongoDB server.")
+        except pymongo.errors.ConfigurationError:
+            print("Configuration error. Check your PyMongo configuration.")
+        except pymongo.errors.ServerSelectionTimeoutError:
+            print("Unable to select a MongoDB server.")
+        except pymongo.errors.OperationFailure:
+            print("Database operation failed. Check your permissions and configuration.")
 
     """
     ============
