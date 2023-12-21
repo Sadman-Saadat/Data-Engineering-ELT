@@ -1,6 +1,6 @@
 dnspython==2.3.0
 mysql-connector-python==8.0.31
-numpy==1.21.6
+numpy==1.22.0
 pandas==1.1.5
 protobuf==3.20.1
 psycopg2==2.9.5
