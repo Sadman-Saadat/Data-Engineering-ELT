@@ -1,6 +1,7 @@
 import psycopg2
 from psycopg2 import extras
 import pandas as pd
+import numpy as np
 from datetime import datetime
 import mysql
 from utility.truncate_data import truncate_data
@@ -19,6 +20,8 @@ def insert_data_postgres(src_conn,
         src_cursor.execute(sql_code)  # execute query in src
         data = src_cursor.fetchall()  # get data from src
         df = pd.DataFrame(data)  # convert it to DataFrame
+        df = df.convert_dtypes() # acctual data types 
+        df.replace({np.nan: None}, inplace = True)  # replace null value
         values = [tuple(x) for x in df.to_numpy()]  # extract data
         cols = ",".join([col[0] for col in src_cursor.description])  # columns
         insert_query = f"insert into {tgt_schema}.%s(%s) values %%s" % (table_name, cols)  # target table
